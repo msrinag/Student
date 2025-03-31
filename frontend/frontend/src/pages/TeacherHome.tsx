@@ -89,70 +89,77 @@ const TeacherHome = () => {
   }
 
   return (
-    <div>
-      <h2>Welcome, Teacher!</h2>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      {/* Top Right Logout Button */}
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button onClick={handleLogout} style={{ padding: "8px 15px", backgroundColor: "#f44336", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+          Logout
+        </button>
+      </div>
 
       {/* Teacher Profile Section */}
-      {teacherProfile ? (
-        <div>
-          <h3>Profile Details:</h3>
-          <p><strong>Name:</strong> {teacherProfile.name}</p>
-          <p><strong>Address:</strong> {teacherProfile.address}</p>
-          <p><strong>Phone No:</strong> {teacherProfile.phoneNo}</p>
+      <div style={{ display: "flex", alignItems: "center", marginTop: "20px", borderBottom: "1px solid #ddd", paddingBottom: "20px" }}>
+        <div style={{ width: "100px", height: "100px", borderRadius: "50%", backgroundColor: "#e0e0e0", marginRight: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <span style={{ fontSize: "2em" }}>🧑‍🏫</span>
         </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
+        <div>
+          {teacherProfile ? (
+            <div>
+              <h2>{teacherProfile.name}</h2>
+              <p><strong>Address:</strong> {teacherProfile.address}</p>
+              <p><strong>Phone No:</strong> {teacherProfile.phoneNo}</p>
+            </div>
+          ) : (
+            <p>Loading profile...</p>
+          )}
+        </div>
+      </div>
 
       {/* Create Course Section */}
-      <h3>Create a New Course</h3>
-      <input
-        type="text"
-        placeholder="Enter course name"
-        value={newCourseName}
-        onChange={(e) => setNewCourseName(e.target.value)}
-      />
-      <button onClick={createCourse}>Create Course</button>
+      <div style={{ marginTop: "20px" }}>
+        <h3>Create a New Course</h3>
+        <input
+          type="text"
+          placeholder="Enter course name"
+          value={newCourseName}
+          onChange={(e) => setNewCourseName(e.target.value)}
+          style={{ padding: "8px", marginRight: "10px", border: "1px solid #ddd", borderRadius: "4px" }}
+        />
+        <button onClick={createCourse} style={{ padding: "8px 15px", backgroundColor: "#4caf50", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+          Create Course
+        </button>
+      </div>
 
       {/* Offered Courses Table */}
-      <h3>Courses Offered</h3>
-      {offeredCourses.length > 0 ? (
-        <table border={1} style={{ width: "100%", marginTop: "20px" }}>
-          <thead>
-            <tr>
-              <th>Course ID</th>
-              <th>Course Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {offeredCourses.map((course) => (
-              <tr key={course.id}>
-                <td>{course.id}</td>
-                <td>{course.courseName}</td>
-                <td>
-                  <button
-                    onClick={() => deleteCourse(course.id)}
-                    style={{
-                      color: "white",
-                      backgroundColor: "red",
-                      border: "none",
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    🗑 Delete
-                  </button>
-                </td>
+      <div style={{ marginTop: "20px" }}>
+        <h3>Courses Offered</h3>
+        {offeredCourses.length > 0 ? (
+          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+            <thead>
+              <tr style={{ backgroundColor: "#f2f2f2" }}>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course ID</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course Name</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No courses offered yet.</p>
-      )}
-
-      <button onClick={handleLogout}>Logout</button>
+            </thead>
+            <tbody>
+              {offeredCourses.map((course) => (
+                <tr key={course.id} style={{ borderBottom: "1px solid #ddd" }}>
+                  <td style={{ padding: "10px" }}>{course.id}</td>
+                  <td style={{ padding: "10px" }}>{course.courseName}</td>
+                  <td style={{ padding: "10px" }}>
+                    <button onClick={() => deleteCourse(course.id)} style={{ backgroundColor: "#f44336", color: "white", border: "none", padding: "8px 12px", borderRadius: "4px", cursor: "pointer" }}>
+                      🗑 Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No courses offered yet.</p>
+        )}
+      </div>
     </div>
   );
 };

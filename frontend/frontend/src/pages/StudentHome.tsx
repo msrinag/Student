@@ -92,92 +92,87 @@ const StudentHome = () => {
   }
 
   return (
-    <div>
-      <h2>Welcome, Student!</h2>
-      {studentProfile ? (
-        <div>
-          <h3>Profile Details:</h3>
-          <p><strong>Name:</strong> {studentProfile.name}</p>
-          <p><strong>Address:</strong> {studentProfile.address}</p>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      {/* Top Right Logout Button */}
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button onClick={handleLogout} style={{ padding: "8px 15px", backgroundColor: "#f44336", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+          Logout
+        </button>
+      </div>
+
+      {/* Profile Section */}
+      <div style={{ display: "flex", alignItems: "center", marginTop: "20px", borderBottom: "1px solid #ddd", paddingBottom: "20px" }}>
+        <div style={{ width: "100px", height: "100px", borderRadius: "50%", backgroundColor: "#e0e0e0", marginRight: "20px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          {/* Placeholder for Profile Picture */}
+          <span style={{ fontSize: "2em" }}>👤</span>
         </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
+        <div>
+          {studentProfile ? (
+            <div>
+              <h2>{studentProfile.name}</h2>
+              <p><strong>Address:</strong> {studentProfile.address}</p>
+            </div>
+          ) : (
+            <p>Loading profile...</p>
+          )}
+        </div>
+      </div>
 
-      {/* Registered Courses Table */}
-      <h3>Registered Courses:</h3>
-      {courses.length > 0 ? (
-        <table border={1} style={{ width: "100%", marginTop: "20px" }}>
-          <thead>
-            <tr>
-              <th>Course ID</th>
-              <th>Course Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map(course => (
-              <tr key={course.id}>
-                <td>{course.id}</td>
-                <td>{course.courseName}</td>
-                <td>
-                  <button
-                    onClick={() => handleDropCourse(course.id)}
-                    style={{
-                      color: "white",
-                      backgroundColor: "red",
-                      border: "none",
-                      padding: "5px 10px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    🗑️ Drop
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No registered courses found.</p>
-      )}
-
-      {/* Button to open modal */}
-      <button onClick={handleOpenModal} style={{ marginTop: "20px", padding: "10px", backgroundColor: "blue", color: "white", border: "none", cursor: "pointer" }}>
-        📚 Register for a Course
-      </button>
-
-      {/* Modal for course selection */}
-      {showModal && (
-        <div style={{
-          position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-          backgroundColor: "black", padding: "20px", boxShadow: "0px 0px 10px rgba(0,0,0,0.1)", borderRadius: "8px"
-        }}>
-          <h3>Available Courses</h3>
-          <table border={1} style={{ width: "100%", marginTop: "10px" }}>
+      {/* Courses List */}
+      <div style={{ marginTop: "20px" }}>
+        <h3>Registered Courses</h3>
+        {courses.length > 0 ? (
+          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
             <thead>
-              <tr>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Action</th>
+              <tr style={{ backgroundColor: "#f2f2f2" }}>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course ID</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course Name</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Action</th>
               </tr>
             </thead>
             <tbody>
-              {allCourses.map(course => (
-                <tr key={course.id}>
-                  <td>{course.id}</td>
-                  <td>{course.name}</td>
-                  <td>
-                    <button
-                      onClick={() => handleEnrollCourse(course.id)}
-                      style={{
-                        color: "white",
-                        backgroundColor: "green",
-                        border: "none",
-                        padding: "5px 10px",
-                        cursor: "pointer",
-                      }}
-                    >
+              {courses.map((course) => (
+                <tr key={course.id} style={{ borderBottom: "1px solid #ddd" }}>
+                  <td style={{ padding: "10px" }}>{course.id}</td>
+                  <td style={{ padding: "10px" }}>{course.courseName}</td>
+                  <td style={{ padding: "10px" }}>
+                    <button onClick={() => handleDropCourse(course.id)} style={{ backgroundColor: "#f44336", color: "white", border: "none", padding: "8px 12px", borderRadius: "4px", cursor: "pointer" }}>
+                      🗑️ Drop
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No registered courses found.</p>
+        )}
+      </div>
+
+      {/* Modal Button */}
+      <button onClick={handleOpenModal} style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "#2196f3", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+        📚 Register for a Course
+      </button>
+
+      {/* Modal */}
+      {showModal && (
+        <div style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", backgroundColor: "white", padding: "20px", boxShadow: "0px 0px 10px rgba(0,0,0,0.1)", borderRadius: "8px", zIndex: "1000" }}>
+          <h3>Available Courses</h3>
+          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+            <thead>
+              <tr style={{ backgroundColor: "#f2f2f2" }}>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course ID</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Course Name</th>
+                <th style={{ padding: "10px", textAlign: "left" }}>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allCourses.map((course) => (
+                <tr key={course.id} style={{ borderBottom: "1px solid #ddd" }}>
+                  <td style={{ padding: "10px" }}>{course.id}</td>
+                  <td style={{ padding: "10px" }}>{course.name}</td>
+                  <td style={{ padding: "10px" }}>
+                    <button onClick={() => handleEnrollCourse(course.id)} style={{ backgroundColor: "#4caf50", color: "white", border: "none", padding: "8px 12px", borderRadius: "4px", cursor: "pointer" }}>
                       ➕ Add
                     </button>
                   </td>
@@ -186,13 +181,11 @@ const StudentHome = () => {
             </tbody>
           </table>
 
-          <button onClick={() => setShowModal(false)} style={{ marginTop: "20px", padding: "10px", backgroundColor: "gray", color: "white", border: "none", cursor: "pointer" }}>
+          <button onClick={() => setShowModal(false)} style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "gray", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
             ❌ Close
           </button>
         </div>
       )}
-
-      <button onClick={handleLogout} style={{ marginTop: "20px" }}>Logout</button>
     </div>
   );
 };
